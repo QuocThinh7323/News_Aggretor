@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,36 +74,35 @@
 			color: #333;
 		}
 
-		.news-item {
-			margin-bottom: 20px;
-			padding: 20px;
-			border-radius: 16px;
-			background: linear-gradient(to bottom right, #ffffff, #f9f9f9);
-			box-shadow: 0 6px 16px rgba(0,0,0,0.05);
-			transition: all 0.2s ease-in-out;
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-top: 10px;
 		}
 
-		.news-item:hover {
-			transform: translateY(-3px);
-			box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+		th, td {
+			text-align: left;
+			padding: 12px;
+			border-bottom: 1px solid #eee;
+		}
+
+		th {
+			background-color: #f0f4f8;
+			color: #2c3e50;
+		}
+
+		tr:hover {
+			background-color: #f9f9f9;
 		}
 
 		a {
 			color: #2c7be5;
-			font-size: 1.1em;
 			font-weight: 600;
 			text-decoration: none;
-			display: inline-block;
-			margin-bottom: 6px;
 		}
 
 		a:hover {
 			text-decoration: underline;
-		}
-
-		small {
-			color: #777;
-			font-size: 0.9em;
 		}
 
 		.no-results {
@@ -112,7 +110,6 @@
 			color: #999;
 			font-style: italic;
 			font-size: 1.1em;
-			margin-top: 30px;
 		}
 	</style>
 </head>
@@ -125,7 +122,17 @@
 			<button class="clear-btn" onclick="document.getElementById('searchBox').value=''; document.getElementById('searchBox').dispatchEvent(new Event('input'));">×</button>
 		</div>
 
-		<div id="newsList">Loading news...</div>
+		<table>
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>Source</th>
+				</tr>
+			</thead>
+			<tbody id="newsList">
+				<tr><td colspan="2">Loading news...</td></tr>
+			</tbody>
+		</table>
 	</div>
 
 	<script>
@@ -138,7 +145,8 @@
 				renderArticles(data);
 			})
 			.catch(error => {
-				document.getElementById("newsList").innerText = "Error loading news.";
+				const list = document.getElementById("newsList");
+				list.innerHTML = `<tr><td colspan="2">Error loading news.</td></tr>`;
 				console.error("Error:", error);
 			});
 
@@ -147,18 +155,17 @@
 			list.innerHTML = "";
 
 			if (articles.length === 0) {
-				list.innerHTML = "<p class='no-results'>No matching results found.</p>";
+				list.innerHTML = `<tr><td colspan="2" class="no-results">No matching results found.</td></tr>`;
 				return;
 			}
 
 			articles.forEach(article => {
-				const item = document.createElement("div");
-				item.className = "news-item";
-				item.innerHTML = `
-					<a href="${article.url}" target="_blank">${article.title}</a><br>
-					<small>Source: ${article.source}</small>
+				const row = document.createElement("tr");
+				row.innerHTML = `
+					<td><a href="${article.url}" target="_blank">${article.title}</a></td>
+					<td><small>${article.source}</small></td>
 				`;
-				list.appendChild(item);
+				list.appendChild(row);
 			});
 		}
 
@@ -172,5 +179,3 @@
 	</script>
 </body>
 </html>
-
-
