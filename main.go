@@ -88,7 +88,7 @@ func scrapeSource(url string, wg *sync.WaitGroup, ch chan<- Article) {
 					URL:    link,
 					Source: url,
 				}
-				
+
 			}
 		}
 	})
@@ -215,7 +215,7 @@ func ProduceArticle(article string) {
 
 // ===== HTTP Handlers =====
 func GetLatestArticles(w http.ResponseWriter, r *http.Request) {
-	sources := []string{"https://laodong.vn/", "https://dantri.com.vn/"}
+	sources := []string{"https://dantri.com.vn/", "https://laodong.vn/"}
 	articles := ScrapeNews(sources)
 
 	if len(articles) == 0 {
