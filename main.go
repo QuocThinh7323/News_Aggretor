@@ -82,7 +82,7 @@ func scrapeSource(url string, wg *sync.WaitGroup, ch chan<- Article) {
 		link, exists := s.Attr("href")
 
 		if exists && title != "" {
-			if !strings.HasPrefix(link, "/") && strings.Contains(link, "https://vnexpress.net/") {
+			if !strings.HasPrefix(link, "/") && strings.Contains(link, "https://laodong.vn/") {
 				ch <- Article{
 					Title:  title,
 					URL:    link,
