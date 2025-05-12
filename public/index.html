@@ -1,181 +1,410 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Latest News</title>
-	<style>
-		@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+  <meta charset="UTF-8" />
+  <title>EcoNews Hub</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-		* {
-			box-sizing: border-box;
-		}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-		body {
-			font-family: 'Inter', sans-serif;
-			background: linear-gradient(to right, #e0eafc, #cfdef3);
-			margin: 0;
-			padding: 40px 20px;
-			color: #2c3e50;
-		}
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+      line-height: 1.6;
+    }
 
-		h1 {
-			text-align: center;
-			font-size: 2.75em;
-			margin-bottom: 30px;
-			color: #1a1a1a;
-			text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
-		}
+    .navbar {
+      background: linear-gradient(135deg, #1a936f, #114b5f);
+      padding: 1rem 0;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
 
-		.container {
-			max-width: 900px;
-			margin: auto;
-			background: rgba(255, 255, 255, 0.25);
-			backdrop-filter: blur(12px);
-			border-radius: 20px;
-			padding: 30px;
-			box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-		}
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
 
-		.search-wrapper {
-			position: relative;
-			margin-bottom: 25px;
-		}
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
 
-		#searchBox {
-			width: 100%;
-			padding: 14px 45px 14px 16px;
-			border-radius: 12px;
-			border: 1px solid #ccc;
-			font-size: 16px;
-			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-			transition: 0.3s;
-		}
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
 
-		#searchBox:focus {
-			outline: none;
-			border-color: #3498db;
-			box-shadow: 0 0 10px rgba(52, 152, 219, 0.2);
-		}
+    .logo-icon {
+      margin-right: 0.5rem;
+      font-size: 2rem;
+    }
 
-		.clear-btn {
-			position: absolute;
-			right: 12px;
-			top: 50%;
-			transform: translateY(-50%);
-			background: none;
-			border: none;
-			font-size: 16px;
-			color: #888;
-			cursor: pointer;
-			transition: color 0.2s;
-		}
+    .hero {
+      background-image: url('/api/placeholder/1200/300');
+      background-size: cover;
+      background-position: center;
+      height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      position: relative;
+    }
 
-		.clear-btn:hover {
-			color: #333;
-		}
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    }
 
-		table {
-			width: 100%;
-			border-collapse: collapse;
-			margin-top: 10px;
-		}
+    .hero-content {
+      position: relative;
+      text-align: center;
+      padding: 0 1rem;
+    }
 
-		th, td {
-			text-align: left;
-			padding: 12px;
-			border-bottom: 1px solid #eee;
-		}
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
 
-		th {
-			background-color: #f0f4f8;
-			color: #2c3e50;
-		}
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
 
-		tr:hover {
-			background-color: #f9f9f9;
-		}
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
 
-		a {
-			color: #2c7be5;
-			font-weight: 600;
-			text-decoration: none;
-		}
+    .search-bar {
+      background-color: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+    }
 
-		a:hover {
-			text-decoration: underline;
-		}
+    .search-input {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      border: 2px solid #e9ecef;
+      border-radius: 50px;
+      font-size: 1rem;
+      color: #495057;
+      transition: all 0.3s ease;
+    }
 
-		.no-results {
-			text-align: center;
-			color: #999;
-			font-style: italic;
-			font-size: 1.1em;
-		}
-	</style>
+    .search-input:focus {
+      outline: none;
+      border-color: #1a936f;
+      box-shadow: 0 0 0 3px rgba(26, 147, 111, 0.15);
+    }
+
+    .search-input-wrapper {
+      position: relative;
+      flex: 1;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #adb5bd;
+      font-size: 1.2rem;
+    }
+
+    .clear-icon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #adb5bd;
+      font-size: 1.2rem;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 1rem 2.8rem;
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .news-card {
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .news-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .card-img {
+      height: 180px;
+      background-color: #e9ecef;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #adb5bd;
+    }
+
+    .card-content {
+      padding: 1.5rem;
+    }
+
+    .card-source {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #1a936f;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+
+    .card-title a {
+      color: #333;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .card-title a:hover {
+      color: #1a936f;
+    }
+
+    .card-date {
+      font-size: 0.85rem;
+      color: #6c757d;
+    }
+
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .no-results-icon {
+      font-size: 3rem;
+      color: #adb5bd;
+      margin-bottom: 1rem;
+    }
+
+    .no-results-text {
+      font-size: 1.1rem;
+      color: #6c757d;
+    }
+
+    .footer {
+      background: linear-gradient(135deg, #114b5f, #1a936f);
+      padding: 2rem 0;
+      color: white;
+      margin-top: 3rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-text {
+      font-size: 0.9rem;
+    }
+
+    .footer-links a {
+      color: white;
+      margin-left: 1.5rem;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      .news-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .footer-links a {
+        margin: 0 0.75rem;
+      }
+    }
+  </style>
 </head>
 <body>
-	<div class="container">
-		<h1>📰 Latest News</h1>
+  <nav class="navbar">
+    <div class="nav-content">
+      <div class="logo-container">
+        <a href="#" class="logo">
+          <span class="logo-icon">🌱</span>
+          <span>EcoNews Hub</span>
+        </a>
+      </div>
+    </div>
+  </nav>
 
-		<div class="search-wrapper">
-			<input type="text" id="searchBox" placeholder="🔍 Search by article title...">
-			<button class="clear-btn" onclick="document.getElementById('searchBox').value=''; document.getElementById('searchBox').dispatchEvent(new Event('input'));">×</button>
-		</div>
+  <div class="hero">
+    <div class="hero-content">
+      <h1>Stay Informed on Environmental News</h1>
+      <p>Discover the latest updates on sustainability, climate action, and green innovations</p>
+    </div>
+  </div>
 
-		<table>
-			<thead>
-				<tr>
-					<th>Title</th>
-					<th>Source</th>
-				</tr>
-			</thead>
-			<tbody id="newsList">
-				<tr><td colspan="2">Loading news...</td></tr>
-			</tbody>
-		</table>
-	</div>
+  <div class="container">
+    <div class="search-bar">
+      <div class="search-input-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchBox" class="search-input" placeholder="Search for environmental news...">
+        <button class="clear-icon" id="clearSearch">×</button>
+      </div>
+    </div>
 
-	<script>
-		let allArticles = [];
+    <div class="news-grid" id="newsList">
+      <div class="no-results">
+        <div class="no-results-icon">⌛</div>
+        <div class="no-results-text">Loading articles...</div>
+      </div>
+    </div>
+  </div>
 
-		fetch("/articles")
-			.then(response => response.json())
-			.then(data => {
-				allArticles = data;
-				renderArticles(data);
-			})
-			.catch(error => {
-				const list = document.getElementById("newsList");
-				list.innerHTML = `<tr><td colspan="2">Error loading news.</td></tr>`;
-				console.error("Error:", error);
-			});
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-text">
+        © 2025 EcoNews Hub. All rights reserved.
+      </div>
+      <div class="footer-links">
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
 
-		function renderArticles(articles) {
-			const list = document.getElementById("newsList");
-			list.innerHTML = "";
+  <script>
+    let allArticles = [];
 
-			if (articles.length === 0) {
-				list.innerHTML = `<tr><td colspan="2" class="no-results">No matching results found.</td></tr>`;
-				return;
-			}
+    fetch("/articles")
+      .then(response => response.json())
+      .then(data => {
+        allArticles = data;
+        renderArticles(data);
+      })
+      .catch(error => {
+        const list = document.getElementById("newsList");
+        list.innerHTML = `
+          <div class="no-results">
+            <div class="no-results-icon">❌</div>
+            <div class="no-results-text">Error loading news. Please try again later.</div>
+          </div>
+        `;
+        console.error("Error:", error);
+      });
 
-			articles.forEach(article => {
-				const row = document.createElement("tr");
-				row.innerHTML = `
-					<td><a href="${article.url}" target="_blank">${article.title}</a></td>
-					<td><small>${article.source}</small></td>
-				`;
-				list.appendChild(row);
-			});
-		}
+    function renderArticles(articles) {
+      const list = document.getElementById("newsList");
+      list.innerHTML = "";
 
-		document.getElementById("searchBox").addEventListener("input", function () {
-			const keyword = this.value.toLowerCase();
-			const filtered = allArticles.filter(article =>
-				article.title.toLowerCase().includes(keyword)
-			);
-			renderArticles(filtered);
-		});
-	</script>
+      if (articles.length === 0) {
+        list.innerHTML = `
+          <div class="no-results">
+            <div class="no-results-icon">🔍</div>
+            <div class="no-results-text">No matching results found. Try different keywords.</div>
+          </div>
+        `;
+        return;
+      }
+
+      articles.forEach(article => {
+        // Create random date for demo purposes
+        const randomMonth = ["Jan", "Feb", "Mar", "Apr", "May"][Math.floor(Math.random() * 5)];
+        const randomDay = Math.floor(Math.random() * 28) + 1;
+        
+        const card = document.createElement("div");
+        card.className = "news-card";
+        card.innerHTML = `
+          <div class="card-img">
+            <span>📰</span>
+          </div>
+          <div class="card-content">
+            <span class="card-source">${article.source}</span>
+            <h3 class="card-title"><a href="${article.url}" target="_blank">${article.title}</a></h3>
+            <div class="card-date">${randomMonth} ${randomDay}, 2025</div>
+          </div>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    document.getElementById("searchBox").addEventListener("input", function() {
+      const keyword = this.value.toLowerCase();
+      const filtered = allArticles.filter(article =>
+        article.title.toLowerCase().includes(keyword)
+      );
+      renderArticles(filtered);
+    });
+
+    document.getElementById("clearSearch").addEventListener("click", function() {
+      document.getElementById("searchBox").value = "";
+      renderArticles(allArticles);
+    });
+  </script>
 </body>
 </html>
