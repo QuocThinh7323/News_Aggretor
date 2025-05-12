@@ -82,13 +82,12 @@ func scrapeSource(url string, wg *sync.WaitGroup, ch chan<- Article) {
 		link, exists := s.Attr("href")
 
 		if exists && title != "" {
-			if !strings.HasPrefix(link, "/") && strings.Contains(link, "https://laodong.vn/") {
+			if !strings.HasPrefix(link, "/") && strings.Contains(link, "https://vnexpress.net/") {
 				ch <- Article{
 					Title:  title,
 					URL:    link,
 					Source: url,
 				}
-
 			}
 		}
 	})
@@ -215,7 +214,7 @@ func ProduceArticle(article string) {
 
 // ===== HTTP Handlers =====
 func GetLatestArticles(w http.ResponseWriter, r *http.Request) {
-	sources := []string{"https://dantri.com.vn/", "https://laodong.vn/"}
+	sources := []string{"https://vnexpress.net/", "https://dantri.com.vn/"}
 	articles := ScrapeNews(sources)
 
 	if len(articles) == 0 {
